@@ -3,7 +3,7 @@ import loadInput from '../../utils/loader.js';
 const rawInput = loadInput();
 
 const allPairs = rawInput.split( '\r\n' ).map( pair => pair.split( ',' ).map( elfSection => elfSection.split( '-' ).map( Number ) ) );
-// Simply walkthrough input and create Array[ [ a1, b1 ], [ a2, b2 ], ... ] by splitting 1) by '-', 2) by ',' and 3) by '\r\n' for each line
+// Simply walkthrough input and create Array[ [ a1, b1 ], [ a2, b2 ], ... ] by splitting 1) by '\r\n' for each line, 2) by ',' and 3) by '-'
 
 function startCampCleanup(){
     let count = 0;
