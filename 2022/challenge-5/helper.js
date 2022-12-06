@@ -15,10 +15,8 @@ function completeStackProcedure(){
     // Reverse lines as read from the input, so that Array[ [], [], ... ] can be populated with the crate info from bottom to top
     for( const line of cratesInfo.split( '\r\n' ).slice( 0, -1 ).reverse() ){
         // We're only concerned with crate info or cargo -> char every 4 indexes
-        // console.log( `  LINE -> ${ JSON.stringify( line, null, 2 ) }` );
         for( let i = 1; i < line.length; i += 4 ){
             // Ignore empty cargo, i.e. for this crate, there's no cargo, represented by blank space ' '
-            // console.log( `      CHAR -> ${ JSON.stringify( line[ i ], null, 2 ) }` );
             if( line[ i ] !== ' ' ){
                 // Because index is incrementing by 4, division gives us the multiplier (aka the "real" index). Subtract 1, since #i starts at 1
                 crates[ ( i - 1 ) / 4 ].push( line[ i ] );
