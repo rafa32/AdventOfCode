@@ -8,7 +8,6 @@ export default function loadInput( fileName = null ){
     //  Note: Might be worth to explore import.meta in the future, in placement of require.main[.filename]
     const dirName = path.dirname( process.argv[ 1 ] );
     const fileRef = path.join( dirName, fileName || DEFAULT_INPUT_FILENAME );
-    // Return Array[] with each input item allocated to an index
     return fs.readFileSync( fileRef, { encoding : 'utf-8' } );
     // Async alternative using 'fs/promises'
         // return new Promise( async( resolve, reject ) => {
