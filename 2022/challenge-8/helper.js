@@ -12,7 +12,7 @@ const maxGridHeight = grid.length;
 // #flatTreeGrid is an Array[] of Object{}, each Object{} being a tree represented by its coordinates and height value
 const flatTreeGrid = grid.flat();
 
-function countTreeTops(){
+function determineTreeVisibility(){
     // Process all trees for each row (bottom-to-top) and compare heights from left to right
     for( let y = 0; y < maxGridHeight; y++ ){
         let maxTreeHeight = -1;
@@ -59,6 +59,72 @@ function countTreeTops(){
     }
 }
 
-countTreeTops();
+let maxScore = 0;
+function calculateScenicScore(){
+    
+    for( let currY = 0; currY < maxGridHeight; currY++ ){
+        for( let currX = 0; currX < maxGridWidth; currX++ ){
+            const currentTree = grid[ currY ][ currX ];
+
+            let bottomScore = 0;
+            for( let nextY = currY + 1; nextY < maxGridHeight; nextY++ ){
+                const nextTree = grid[ nextY ][ currX ];
+                if( !nextTree ){
+                    break;
+                }
+                bottomScore++;
+                if( nextTree.treeHeight >= currentTree.treeHeight ){
+                    break;
+                }
+            }
+
+            let topScore = 0;
+            for( let nextY = currY - 1; nextY >= 0; nextY-- ){
+                const nextTree = grid[ nextY ][ currX ];
+                if( !nextTree ){
+                    break;
+                }
+                topScore++;
+                if( nextTree.treeHeight >= currentTree.treeHeight ){
+                    break;
+                }
+            }
+
+            let rightScore = 0;
+            for( let nextX = currX + 1; nextX < maxGridWidth; nextX++ ){
+                const nextTree = grid[ currY ][ nextX ];
+                if( !nextTree ){
+                    break;
+                }
+                rightScore++;
+                if( nextTree.treeHeight >= currentTree.treeHeight ){
+                    break;
+                }
+            }
+
+            let leftScore = 0;
+            for( let nextX = currX - 1; nextX >= 0; nextX-- ){
+                const nextTree = grid[ currY ][ nextX ];
+                if( !nextTree ){
+                    break;
+                }
+                leftScore++;
+                if( nextTree.treeHeight >= currentTree.treeHeight ){
+                    break;
+                }
+            }
+
+            const currScore = bottomScore * topScore * rightScore * leftScore;
+            if( currScore > maxScore ){
+                maxScore = currScore;
+            }
+        }
+    }
+}
+// Part #1
+determineTreeVisibility();
+// Part #2
+calculateScenicScore();
 
 console.log( flatTreeGrid.filter( ( objTree ) => objTree.visible ).length );
+console.log( maxScore );
